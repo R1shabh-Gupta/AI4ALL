@@ -30,7 +30,7 @@ const DropZonePage = () => {
       <div className="absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
       {/* toolbox */}
-      <div className="z-40 w-2/3 h-full p-12 mx-auto shadow-[0px_0px_50px_40px_#EBF8FF] bg-gray-100 border border-gray-200 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 flex justify-evenly gap-8">
+      <div className="z-40 w-2/3 h-full p-12 mx-auto shadow-[0px_0px_50px_40px_#76078528] bg-gray-100 border border-gray-200 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 flex justify-evenly gap-8">
         <div className=" w-[40%] h-auto gap-4 rounded-md border-2 border-dashed border-gray-200 flex flex-col justify-center items-center bg-slate-50 px-12">
           <Input
             id="name"
