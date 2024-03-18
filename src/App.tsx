@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import CTA from "./components/CTA";
 import FAQsSection from "./components/FAQsSection";
@@ -7,18 +8,27 @@ import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import OverviewSection from "./components/OverviewSection";
 import VersionSection from "./components/VersionSection";
+import { auth } from "./firebase";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  auth.onAuthStateChanged(function (user) {
+    if (user) {
+      setIsLoggedIn(true);
+    }
+  });
+
   return (
     <div>
-      <Navbar />
-      <HeroSection />
+      <Navbar onIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+      <HeroSection isLoggedIn={isLoggedIn} />
       <OverviewSection />
       <VersionSection />
       <FeaturesSection />
       <FAQsSection />
       <CTA />
-      <Footer />
+      <Footer isLoggedIn={isLoggedIn} />
     </div>
   );
 }

@@ -1,14 +1,25 @@
 import { Button } from "./ui/button";
 
-const Footer = () => {
+type appProps = {
+  isLoggedIn: boolean;
+};
+
+const Footer = ({ isLoggedIn }: appProps) => {
   return (
     <div className="pt-24 -mt-1 ">
       <div className="flex flex-col justify-between w-3/4 gap-8 mx-auto">
         <div className="flex flex-col content-end w-full">
           <hr className="bg-gray-300 h-[2px] w-full" />
-          <Button className="ml-auto my-16 w-fit bg-[#862FE7] hover:bg-[#852fe7d8]">
-            Sign up for free
-          </Button>
+          {!isLoggedIn ? (
+            <Button className="ml-auto my-16 w-fit bg-[#862FE7] hover:bg-[#852fe7d8]">
+              Sign up for free
+            </Button>
+          ) : (
+            <Button className="ml-auto my-16 w-fit bg-[#862FE7] hover:bg-[#852fe7d8]">
+              See <b className="mx-1">AI4ALL</b> in action
+            </Button>
+          )}
+
           <hr className="bg-gray-300 h-[2px] w-full" />
         </div>
 
