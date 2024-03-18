@@ -19,16 +19,16 @@ const OverviewSection = () => {
   return (
     <div className="py-12 bg-[#EBDAFD] -mt-1 sm:py-24">
       <div className="w-3/4 mx-auto">
-        <div className="flex justify-between">
-          <div className="flex flex-col w-2/5 gap-4">
+        <div className="flex flex-col justify-between gap-6 sm:gap-0 sm:flex-row">
+          <div className="flex flex-col gap-4 sm:w-2/5">
             <h2 className="text-sm font-semibold uppercase">
               Revolutionize MACHINE LEARNING
             </h2>
-            <h1 className="text-5xl text-[#5F259E] font-semibold">
+            <h1 className="text-3xl sm:text-5xl text-[#5F259E] font-semibold">
               Democratized Selection, Tuning, Deployment
             </h1>
           </div>
-          <div className="flex flex-col w-2/5 gap-6">
+          <div className="flex flex-col gap-6 sm:w-2/5">
             <p>
               In the era of data abundance and increasing demand for ML and deep
               learning solutions, AI4ALL is your gateway to harnessing the power
@@ -45,7 +45,7 @@ const OverviewSection = () => {
           alt="dashboard"
         />
 
-        <div className="flex justify-between gap-8">
+        <div className="flex flex-col justify-between gap-8 sm:flex-row">
           <Card
             title="Guidance and Support"
             content="Whether you're a seasoned data scientist or a newcomer to the world of AI, AI4ALL provides guidance and support every step of the way."
