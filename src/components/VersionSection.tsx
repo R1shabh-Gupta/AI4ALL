@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 
 const VersionSection = () => {
   return (
-    <div className="py-24 -mt-1 ">
+    <div className="pt-24 -mt-1 ">
       <div className="flex justify-between w-3/4 mx-auto">
         {/* sub-section 1 */}
         <div className="flex flex-col justify-center gap-4">
