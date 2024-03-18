@@ -14,7 +14,7 @@ const Card = ({ title, content }: CardProps) => {
 
 const FAQsSection = () => {
   return (
-    <div className="py-24 -mt-1 ">
+    <div className="py-12 -mt-1 sm:py-24">
       <div className="relative flex flex-col justify-between w-3/4 gap-16 mx-auto">
         {/* sub-section */}
         <div className="flex flex-col gap-4">

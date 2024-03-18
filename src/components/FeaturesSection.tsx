@@ -1,18 +1,20 @@
 const FeaturesSection = () => {
   return (
-    <div className="py-24 -mt-1 ">
+    <div className="py-12 -mt-1 sm:py-24">
       <div className="flex flex-col justify-between w-3/4 mx-auto">
         {/* sub section */}
         <div className="flex flex-col w-full gap-4 mx-auto text-center">
           <h1 className="text-[#862FE7] uppercase font-semibold text-md">
             AI4ALL tool features
           </h1>
-          <h2 className="text-5xl font-semibold">See all features</h2>
+          <h2 className="text-4xl font-semibold sm:text-5xl">
+            See all features
+          </h2>
         </div>
 
         {/* sub section */}
-        <div className="flex flex-wrap justify-between gap-5 mt-24">
-          <div className="w-[30%] p-8 rounded-xl shadow-sm bg-gray-50">
+        <div className="flex flex-wrap justify-between gap-5 mt-12 sm:mt-24">
+          <div className="w-[90%] sm:w-[30%] p-8 rounded-xl shadow-sm bg-gray-50">
             <h2 className="text-lg font-semibold">Model Selection</h2>
             <ul className="flex flex-col gap-1 mt-2 ml-4 text-gray-600 list-disc">
               <li>
@@ -30,7 +32,7 @@ const FeaturesSection = () => {
             </ul>
           </div>
 
-          <div className="w-[30%] p-8 rounded-xl shadow-sm bg-gray-50">
+          <div className="w-[90%] sm:w-[30%] p-8 rounded-xl shadow-sm bg-gray-50">
             <h2 className="text-lg font-semibold">Fine-Tuning</h2>
             <ul className="flex flex-col gap-1 mt-2 ml-4 text-gray-600 list-disc">
               <li>
@@ -48,7 +50,7 @@ const FeaturesSection = () => {
             </ul>
           </div>
 
-          <div className="w-[30%] p-8 rounded-xl shadow-sm bg-gray-50">
+          <div className="w-[90%] sm:w-[30%] p-8 rounded-xl shadow-sm bg-gray-50">
             <h2 className="text-lg font-semibold">Guidance</h2>
             <ul className="flex flex-col gap-1 mt-2 ml-4 text-gray-600 list-disc">
               <li>
@@ -68,8 +70,8 @@ const FeaturesSection = () => {
         </div>
 
         {/* sub section */}
-        <div className="flex flex-wrap justify-between mt-24 ">
-          <div className="w-[30%] flex gap-4">
+        <div className="flex flex-col flex-wrap justify-between gap-8 mt-12 sm:gap-0 sm:flex-row sm:mt-24">
+          <div className="w-[90%] sm:w-[30%] flex gap-4">
             <img
               className="w-10 h-10"
               src="/assets/images/icon-1.png"
@@ -84,7 +86,7 @@ const FeaturesSection = () => {
             </div>
           </div>
 
-          <div className="w-[30%] flex gap-4">
+          <div className="w-[90%] sm:w-[30%] flex gap-4">
             <img
               className="w-10 h-10"
               src="/assets/images/icon-2.png"
@@ -99,7 +101,7 @@ const FeaturesSection = () => {
             </div>
           </div>
 
-          <div className="w-[30%] flex gap-4">
+          <div className="w-[90%] sm:w-[30%] flex gap-4">
             <img
               className="w-10 h-10"
               src="/assets/images/icon-3.png"

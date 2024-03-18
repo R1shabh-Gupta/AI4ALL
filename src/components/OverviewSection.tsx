@@ -17,7 +17,7 @@ const Card = ({ title, content }: CardProps) => {
 
 const OverviewSection = () => {
   return (
-    <div className="bg-[#EBDAFD] py-24 -mt-1">
+    <div className="py-12 bg-[#EBDAFD] -mt-1 sm:py-24">
       <div className="w-3/4 mx-auto">
         <div className="flex justify-between">
           <div className="flex flex-col w-2/5 gap-4">
