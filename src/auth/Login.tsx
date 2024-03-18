@@ -69,7 +69,10 @@ export function Login({ onIsLoggedIn, isbutton = true }: appProps) {
     <Dialog>
       <DialogTrigger asChild>
         {isbutton ? (
-          <Button variant="ghost" className="font-normal text-gray-600 text-md">
+          <Button
+            variant="outline"
+            className="font-normal text-gray-600 text-md"
+          >
             Log In
           </Button>
         ) : (

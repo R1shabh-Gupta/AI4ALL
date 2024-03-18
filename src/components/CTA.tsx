@@ -1,6 +1,10 @@
 import { Button } from "./ui/button";
 
-const CTA = () => {
+type appProps = {
+  isLoggedIn: boolean;
+};
+
+const CTA = ({ isLoggedIn }: appProps) => {
   return (
     <div className="py-12 -mt-1 sm:py-24">
       <div className="flex bg-[url(/assets/images/CardBG.png)] bg-cover bg-no-repeat bg-center justify-between w-[90%] mx-auto rounded-3xl text-white py-16 shadow-md">
@@ -17,9 +21,12 @@ const CTA = () => {
           </p>
 
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Button className="px-6 text-black bg-white hover:bg-slate-50 hover:text-black">
-              <p> Sign up for free</p>
-            </Button>
+            {!isLoggedIn ? (
+              <Button className="px-6 text-black bg-white hover:bg-slate-50 hover:text-black">
+                <p> Sign up for free</p>
+              </Button>
+            ) : null}
+
             <Button className="px-6 bg-transparent" variant="outline">
               See <b>AI4ALL</b> in action
             </Button>

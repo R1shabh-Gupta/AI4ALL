@@ -1,14 +1,11 @@
 import { useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import CTA from "./components/CTA";
-import FAQsSection from "./components/FAQsSection";
-import FeaturesSection from "./components/FeaturesSection";
-import Footer from "./components/Footer";
-import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
-import OverviewSection from "./components/OverviewSection";
-import VersionSection from "./components/VersionSection";
 import { auth } from "./firebase";
+import DropZonePage from "./pages/DropZonePage";
+import HomePage from "./pages/HomePage";
+import KairosAIPage from "./pages/KairosAIPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,14 +18,14 @@ function App() {
 
   return (
     <div>
-      <Navbar onIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
-      <HeroSection isLoggedIn={isLoggedIn} />
-      <OverviewSection />
-      <VersionSection />
-      <FeaturesSection />
-      <FAQsSection />
-      <CTA />
-      <Footer isLoggedIn={isLoggedIn} />
+      <Router>
+        <Navbar onIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+        <Routes>
+          <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
+          <Route path="/dropzone" element={<DropZonePage />} />
+          <Route path="/kairos" element={<KairosAIPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { Login } from "@/auth/Login";
 
 import { Signup } from "@/auth/Signup";
 import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import { NavigationMenu } from "./ui/navigation-menu";
 
@@ -12,7 +13,8 @@ type appProps = {
 
 const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
   const auth = getAuth();
-  const user = auth.currentUser;
+  // const user = auth.currentUser;
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     signOut(auth)
@@ -28,15 +30,31 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
   return (
     <div className="flex items-center justify-center sm:justify-between sm:px-28 py-4 border-b-[1px]">
       <h1 className="text-2xl font-semibold font-heading">
-        AI4ALL
+        <button onClick={() => navigate("/")}>AI4ALL</button>
+
         <sup className="text-xs font-normal text-gray-500 font-inter">BETA</sup>
       </h1>
 
       <div className="hidden sm:flex">
-        <ul className="flex items-center justify-center gap-6 text-gray-600">
-          <li>Features</li>
-          <li>Pricing</li>
-          <li>Blog</li>
+        <ul className="flex items-center justify-center text-gray-600">
+          <li>
+            <Button
+              className="font-normal text-gray-600 text-md"
+              variant="ghost"
+              onClick={() => navigate("/dropzone")}
+            >
+              DropZone
+            </Button>
+          </li>
+          <li className="mr-5">
+            <Button
+              className="font-normal text-gray-600 text-md"
+              variant="ghost"
+              onClick={() => navigate("/kairos")}
+            >
+              KairosAI
+            </Button>
+          </li>
 
           {/* test */}
           <li>
@@ -76,9 +94,9 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center gap-4">
-                    <h3 className="hidden md:block text-[#760785b5]">
+                    {/* <h3 className="hidden md:block text-[#760785b5]">
                       Welcome! {user?.displayName}
-                    </h3>
+                    </h3> */}
 
                     <Button variant="outline" size="icon">
                       <a
