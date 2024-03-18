@@ -24,5 +24,3 @@ function App() {
 }
 
 export default App;
-
-// Refactor: Navbar mobile optimized
