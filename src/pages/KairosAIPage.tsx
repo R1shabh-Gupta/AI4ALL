@@ -1,4 +1,5 @@
 import OutputTextarea from "@/components/OutputTextarea";
+import axios from "axios";
 import { useState } from "react";
 
 const KairosAIPage = () => {
@@ -9,19 +10,19 @@ const KairosAIPage = () => {
   const handleRequest = async () => {
     try {
       setIsLoading(true);
-      // const response = await axios.post(
-      //   "http://127.0.0.1:5000/test",
-      //   {
-      //     text: inputText,
-      //   },
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
+      const response = await axios.post(
+        "http://127.0.0.1:5000/test",
+        {
+          text: inputText,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      setOutputText("hello");
+      setOutputText(response.data);
 
       setIsLoading(false);
     } catch (error) {
@@ -40,7 +41,7 @@ const KairosAIPage = () => {
       <div className="absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
       {/* chatbox */}
-      <div className="z-40 w-2/3 h-full p-12 mx-auto bg-gray-100 border border-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10">
+      <div className="z-40 w-2/3 h-full p-12 mx-auto shadow-[0px_0px_50px_40px_#EBF8FF] bg-gray-100 border border-gray-200 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10">
         <div className="flex-[0.75] bg-black-100 p-4 rounded-2xl">
           <div className="flex gap-8">
             <OutputTextarea
