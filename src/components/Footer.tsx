@@ -14,7 +14,7 @@ const Footer = () => {
 
         {/* subsection */}
         <div>
-          <div className="flex justify-between w-2/3">
+          <div className="flex flex-col justify-between w-2/3 gap-8 sm:gap-0 sm:flex-row">
             <div>
               <h1 className="mb-2 text-sm font-bold text-gray-800 uppercase">
                 Product
@@ -61,7 +61,7 @@ const Footer = () => {
           </div>
 
           {/* subsection */}
-          <div className="flex items-center justify-between mt-20 mb-10">
+          <div className="flex flex-col items-center justify-between gap-3 mt-20 mb-10 cursor-pointer sm:gap-0 sm:flex-row">
             <h3 className="text-sm text-gray-500">
               Copyright © 2024 AI4ALL. All rights reserved.
             </h3>
