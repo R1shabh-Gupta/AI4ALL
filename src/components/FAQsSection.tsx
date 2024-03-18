@@ -5,7 +5,7 @@ interface CardProps {
 
 const Card = ({ title, content }: CardProps) => {
   return (
-    <div className="flex flex-col w-[30%] gap-2">
+    <div className="flex flex-col w-[90%] sm:w-[30%] gap-2">
       <h3 className="font-semibold text-gray-800">{title}</h3>
       <p className="text-gray-600">{content}</p>
     </div>
@@ -18,10 +18,10 @@ const FAQsSection = () => {
       <div className="relative flex flex-col justify-between w-3/4 gap-16 mx-auto">
         {/* sub-section */}
         <div className="flex flex-col gap-4">
-          <h1 className="text-[#862FE7] uppercase font-semibold text-md">
+          <h1 className="text-[#862FE7] uppercase font-semibold text-sm sm:text-md">
             Frequently asked questions
           </h1>
-          <h2 className="text-5xl font-semibold">
+          <h2 className="text-4xl font-semibold sm:text-5xl">
             Everything you need to know
           </h2>
           <p>
@@ -31,7 +31,7 @@ const FAQsSection = () => {
         </div>
 
         {/* sub-section */}
-        <div className="flex flex-wrap gap-x-10 gap-y-20">
+        <div className="flex flex-wrap justify-between gap-x-5 gap-y-10 sm:gap-x-10 sm:gap-y-20">
           <Card
             title="What is AI4ALL?"
             content="AI4ALL is a revolutionary no-code tool designed to simplify and democratize the process of selecting, tuning, and deploying machine learning (ML) or deep learning models for diverse datasets."
