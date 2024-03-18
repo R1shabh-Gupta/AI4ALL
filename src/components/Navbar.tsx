@@ -2,13 +2,13 @@ import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (
-    <div className="flex items-center justify-between px-28 py-4 border-b-[1px]">
+    <div className="flex items-center justify-center sm:justify-between sm:px-28 py-4 border-b-[1px]">
       <h1 className="text-2xl font-semibold font-heading">
         AI4ALL
         <sup className="text-xs font-normal text-gray-500 font-inter">BETA</sup>
       </h1>
 
-      <div>
+      <div className="hidden sm:flex">
         <ul className="flex items-center justify-center gap-6 text-gray-600">
           <li>Features</li>
           <li>Pricing</li>
