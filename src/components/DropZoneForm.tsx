@@ -53,14 +53,17 @@ const DropZoneForm = ({
     });
   };
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     // ... existing code ...
 
     const formData = new FormData();
     if (
-      domainName.current.value == "" ||
-      typeOfData.current.value == "" ||
+      (domainName.current
+        ? (domainName.current as HTMLInputElement).value
+        : "") == "" ||
+      (typeOfData.current
+        ? (typeOfData.current as HTMLInputElement).value
+        : "") == "" ||
       modelType == "Not Selected" ||
       picture == undefined
     ) {
@@ -74,11 +77,11 @@ const DropZoneForm = ({
 
     formData.append(
       "domainName",
-      domainName.current ? domainName.current.value : ""
+      domainName.current ? (domainName.current as HTMLInputElement).value : ""
     );
     formData.append(
       "typeOfData",
-      typeOfData.current ? typeOfData.current.value : ""
+      typeOfData.current ? (typeOfData.current as HTMLInputElement).value : ""
     );
     formData.append("modelType", modelType);
     formData.append("isMissingValue", String(isMissingValue));
@@ -130,7 +133,7 @@ const DropZoneForm = ({
           Meta Data
         </h1>
 
-        <form className="flex flex-col w-full gap-4 mt-8">
+        <div className="flex flex-col w-full gap-4 mt-8">
           <div className="w-full">
             <Label htmlFor="name">Domain Name</Label>
             <Input
@@ -184,12 +187,12 @@ const DropZoneForm = ({
           </div>
 
           <Button
-            onClick={handleSubmit}
+            onClick={() => handleSubmit()}
             className="bg-[#770785]/90 hover:bg-[#770785]"
           >
             {isProcessing ? "Processing..." : "Submit"}
           </Button>
-        </form>
+        </div>
       </div>
     </>
   );
