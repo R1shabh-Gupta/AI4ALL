@@ -1,6 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import google.generativeai as genai
+import PIL.Image
+from dotenv import load_dotenv
+load_dotenv()
+import os
+GEMINI_API = os.getenv("GEMINI_API")
 
 app = Flask(__name__)
 CORS(app)
@@ -14,7 +19,7 @@ def test():
         if not question:
             return jsonify({"error": "Missing 'text' field in request"}), 400
 
-        genai.configure(api_key="AIzaSyCoZIlylLChFxALmLyWlz2MdyU6LV5eWfU")
+        genai.configure(api_key=GEMINI_API)
         model = genai.GenerativeModel('gemini-pro')
 
         generatedCode_response = model.generate_content("""Write fully formatted code in one block for a ML model for a dataset with
@@ -40,6 +45,24 @@ def test():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/generateprompt", methods=["POST"])
+def generateprompt():
+    if 'picture' not in request.files:
+      return jsonify({'error': 'Missing image data'}), 400
+    image_file = request.files['picture']
+    img = PIL.Image.open(image_file)
+
+    genai.configure(api_key=GEMINI_API)
+    model = genai.GenerativeModel('gemini-pro-vision')
+
+    response = model.generate_content(["Analyze the provided image and extract the column names along with the first value of each column present in the image. Describe the process and accuracy of your extraction.", img], stream=True)
+
+    response.resolve()
+    print(response.text)
+  
+    return jsonify({"message": response.text})
+
 
 if __name__ == "__main__":
     app.run(debug=True)

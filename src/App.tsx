@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <div>
+      <Toaster />
       <Router>
         <Navbar onIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
         <Routes>
