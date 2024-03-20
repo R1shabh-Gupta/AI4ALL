@@ -28,7 +28,7 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
   };
 
   return (
-    <div className="flex items-center justify-center sm:justify-between sm:px-28 py-4 border-b-[1px]">
+    <div className="flex items-center justify-center sm:justify-between sm:px-28 py-4 border-b-[1px] sticky top-0 z-20 bg-gray-50 bg-clip-padding backdrop-filter backdrop-blur-3xl bg-opacity-50">
       <h1 className="text-2xl font-semibold font-heading">
         <button onClick={() => navigate("/")}>AI4ALL</button>
 
