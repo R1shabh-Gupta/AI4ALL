@@ -38,6 +38,16 @@ def generateprompt():
     if 'picture' not in request.files:
       return jsonify({'error': 'Missing image data'}), 400
     image_file = request.files['picture']
+    # Retrieve all form data from the request
+    form_data = request.form
+
+    # Extract variables from form data
+    domainName = form_data.get("domainName")
+    typeOfData = form_data.get("typeOfData")
+    modelType = form_data.get("modelType")
+    isMissingValue = form_data.get("isMissingValue") == "true"  
+    isGPU = form_data.get("isGPU") == "true" 
+
     img = PIL.Image.open(image_file)
 
     genai.configure(api_key=GEMINI_API)
@@ -71,7 +81,7 @@ def generateprompt():
     Present your explanations in a text format to aid in presenting the information effectively 
     Give only the description disregard everything else""")
 
-    finalResponse = response_01.text + '\n \n' + response_02.text;
+    finalResponse = response_01.text + '\n \n' + response_02.text
     return jsonify({"message": finalResponse})
 
 

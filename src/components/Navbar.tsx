@@ -21,6 +21,7 @@ type appProps = {
 const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
   const auth = getAuth();
   const navigate = useNavigate();
+  const currentPagePathname = window.location.pathname;
 
   const handleSignOut = () => {
     signOut(auth)
@@ -66,11 +67,21 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
               </svg>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>
+              <DropdownMenuLabel
+                className={`${
+                  currentPagePathname === "/dropzone" &&
+                  "font-semibold text-[#770785]"
+                }`}
+              >
                 <Link to="/dropzone">DropZone</Link>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuLabel>
+              <DropdownMenuLabel
+                className={`${
+                  currentPagePathname === "/kairos" &&
+                  "font-semibold text-[#770785]"
+                }`}
+              >
                 <Link to="/kairos">KairosAI</Link>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -111,11 +122,13 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
 
         {/* Large Screen */}
         <div className="hidden sm:flex">
-          <ul className="flex items-center justify-center text-gray-600">
+          <ul className="flex items-center justify-center gap-1 text-gray-600">
             <li>
               <Button
                 className="font-normal text-gray-600 text-md"
-                variant="ghost"
+                variant={`${
+                  currentPagePathname === "/dropzone" ? "secondary" : "ghost"
+                }`}
                 onClick={() => navigate("/dropzone")}
               >
                 DropZone
@@ -124,7 +137,9 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
             <li className="mr-5">
               <Button
                 className="font-normal text-gray-600 text-md"
-                variant="ghost"
+                variant={`${
+                  currentPagePathname === "/kairos" ? "secondary" : "ghost"
+                }`}
                 onClick={() => navigate("/kairos")}
               >
                 KairosAI

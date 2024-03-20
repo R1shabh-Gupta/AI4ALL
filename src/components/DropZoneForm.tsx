@@ -29,7 +29,7 @@ const DropZoneForm = ({
   const domainName = useRef(null);
   const typeOfData = useRef(null);
 
-  const [modelType, setModelType] = useState("Not Selected");
+  const [modelType, setModelType] = useState("Classification");
   const [isMissingValue, setIsMissingValue] = useState(false);
   const [isGPU, setIsGPU] = useState(false);
   const [picture, setPicture] = useState<File>();
@@ -45,7 +45,6 @@ const DropZoneForm = ({
   };
 
   const showUserNotLoggedInError = () => {
-    console.log("first");
     toast({
       variant: "destructive",
       title: "Uh oh! Something went wrong.",
@@ -87,12 +86,13 @@ const DropZoneForm = ({
     if (picture) {
       formData.append("picture", picture);
     }
+    console.log(formData.get("typeOfData"));
     if (user) {
       try {
         setIsProcessing(true);
         const response = await axios.post(
-          // "http://127.0.0.1:5000/generateprompt",
-          "https://r1shabhai4all.pythonanywhere.com/generateprompt",
+          "http://127.0.0.1:5000/generateprompt",
+          // "https://r1shabhai4all.pythonanywhere.com/generateprompt",
           formData,
           {
             headers: {

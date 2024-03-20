@@ -7,7 +7,7 @@ const DropZonePage = () => {
   const [generatedPrompt, setGeneratedPrompt] = useState("");
 
   return (
-    <div className="relative min-h-screen py-6 overflow-hidden bg-gray-50 sm:py-12">
+    <div className="relative min-h-[calc(100vh-80px)] py-6 overflow-hidden bg-gray-50 sm:py-20">
       <img
         src="/assets/images/beams.jpg"
         className="absolute -translate-x-1/2 -translate-y-1/2 -z-10 top-1/2 left-1/2 max-w-none"
