@@ -7,7 +7,7 @@ load_dotenv()
 import os
 GEMINI_API = os.getenv("GEMINI_API")
 
-app = Flask(__name__)
+app = Flask(_name_)
 CORS(app)
 
 @app.route("/test", methods=["POST"])
@@ -23,10 +23,11 @@ def test():
         model = genai.GenerativeModel('gemini-pro')
 
         generatedCode_response = model.generate_content(f"""You are a machine learning engineer tasked with coding a class oriented program for a model appropriate for the requirements in {question}.
-        Carefully analyze the requirements to identify and use the best possible combinations of the requirements.
-        Provide a well oriented code for the model use the best the possible hypermarameters write optimisation functions if required Ensure that your code is clear, concise, and class driven along with proper comments explaining classes Give only the code disregard everything else""")
+        Carefully analyze the requirements to identify and use the best possible combinations of the requirements and the tune all the mentioned hyperparameters.
+        Provide a well oriented code for the model use the best the possible hypermarameters as mentioned write optimisation functions if required Ensure that your code is clear, concise, and class driven along with proper comments explaining classes Give only the code disregard everything else""")
 
-        explanation_response = model.generate_content(f"Explain the code and the metrics to focus on for this domain: {generatedCode_response}")
+        explanation_response = model.generate_content(f"Provide a step-by-step explanation of this python code -> // code start // {generatedCode_response} // code end // . Emphasize the code's functionality and highlight relevant metrics pertinent to the domain. Moreover, delineate the key metrics essential for evaluating performance within this specific context.")
+
        
         return jsonify({"generatedCode": generatedCode_response.text, "explanation": explanation_response.text})
 
@@ -38,12 +39,12 @@ def generateprompt():
     if 'picture' not in request.files:
       return jsonify({'error': 'Missing image data'}), 400
     image_file = request.files['picture']
+
     # Retrieve all form data from the request
     form_data = request.form
-
     # Extract variables from form data
     domainName = form_data.get("domainName")
-    typeOfData = form_data.get("typeOfData")
+    additionalData = form_data.get("additionalData")
     modelType = form_data.get("modelType")
     isMissingValue = form_data.get("isMissingValue") == "true"  
     isGPU = form_data.get("isGPU") == "true" 
@@ -70,20 +71,15 @@ def generateprompt():
 
     textToTextModel = genai.GenerativeModel('gemini-pro')
     response_02 = textToTextModel.generate_content(f"""
-    You are a machine learning engineer tasked with analyzing and providing insights on the {response_01}. Your objective is to suggest and explain a model appropriate for the dataset.
+   As a machine learning engineer tasked with analyzing and providing insights on the {response_01} in the domain of {domainName}, your objective is to suggest and explain a {modelType} model appropriate for the dataset, while also including {additionalData} as a necessary requirement in the output.
 
-    Carefully analyze the columns to identify and list all the parameters possible.
+    Firstly, carefully analyze the columns to identify and list all possible parameters. Then, provide a comprehensive explanation detailing the model to be used and the possible hyperparameters to be updated.
 
-    provide a comprehensive explanation detailing the model to be used and the possible hypermarameters to be updated
+    Ensure that your explanations are clear, concise, and informative, aiding in understanding the purpose and content of the model. Present your explanations in a text format to effectively present the information, focusing solely on the description and disregarding any extraneous details.""")
 
-    Ensure that your explanations are clear, concise, and informative, helping to understand the purpose and content of the model
-
-    Present your explanations in a text format to aid in presenting the information effectively 
-    Give only the description disregard everything else""")
-
-    finalResponse = response_01.text + '\n \n' + response_02.text
+    finalResponse = response_01.text + '\n \n' + response_02.text 
     return jsonify({"message": finalResponse})
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     app.run(debug=True)
