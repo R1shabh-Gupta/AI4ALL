@@ -23,7 +23,12 @@ function App() {
       <Router>
         <Navbar onIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
         <Routes>
-          <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} />} />
+          <Route
+            path="/"
+            element={
+              <HomePage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            }
+          />
           <Route path="/dropzone" element={<DropZonePage />} />
           <Route path="/kairos" element={<KairosAIPage />} />
         </Routes>

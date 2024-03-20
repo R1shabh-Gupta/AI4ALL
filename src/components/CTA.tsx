@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
 type appProps = {
@@ -5,6 +6,7 @@ type appProps = {
 };
 
 const CTA = ({ isLoggedIn }: appProps) => {
+  const navigate = useNavigate();
   return (
     <div className="py-12 -mt-1 sm:py-24">
       <div className="flex bg-[url(/assets/images/CardBG.png)] bg-cover bg-no-repeat bg-center justify-between w-[90%] mx-auto rounded-3xl text-white py-16 shadow-md">
@@ -22,13 +24,22 @@ const CTA = ({ isLoggedIn }: appProps) => {
 
           <div className="flex flex-col gap-4 sm:flex-row">
             {!isLoggedIn ? (
-              <Button className="px-6 text-black bg-white hover:bg-slate-50 hover:text-black">
-                <p> Sign up for free</p>
+              <Button
+                className="px-6 text-black bg-white hover:bg-slate-50 hover:text-black"
+                onClick={() => navigate("/dropzone")}
+              >
+                <p>Check out DropZone</p>
               </Button>
             ) : null}
 
-            <Button className="px-6 bg-transparent" variant="outline">
-              See <b>AI4ALL</b> in action
+            <Button
+              className="px-6 bg-transparent"
+              variant="outline"
+              onClick={() => {
+                navigate("/kairos");
+              }}
+            >
+              See <b className="mx-1">KairosAI</b> in action
             </Button>
           </div>
 

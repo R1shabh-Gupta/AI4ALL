@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
 interface CardProps {
@@ -16,6 +17,8 @@ const Card = ({ title, content }: CardProps) => {
 };
 
 const OverviewSection = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="py-12 bg-[#EBDAFD] -mt-1 sm:py-24">
       <div className="w-3/4 mx-auto">
@@ -35,7 +38,19 @@ const OverviewSection = () => {
               of artificial intelligence and automation for your specific data
               needs.
             </p>
-            <Button className="px-8 w-fit">Explore Automation</Button>
+            <Button
+              className="px-6 w-fit"
+              onClick={() => navigate("/dropzone")}
+            >
+              <div className="flex items-center justify-center gap-2">
+                <img
+                  className="scale-75"
+                  src="/assets/images/star-icon.png"
+                  alt="star"
+                />
+                <p>Check out DropZone</p>
+              </div>
+            </Button>
           </div>
         </div>
 

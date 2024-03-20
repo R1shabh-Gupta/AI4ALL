@@ -1,22 +1,34 @@
+import { Signup } from "@/auth/Signup";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
 type appProps = {
   isLoggedIn: boolean;
+  onIsLoggedIn: (value: boolean) => void;
 };
 
-const Footer = ({ isLoggedIn }: appProps) => {
+const Footer = ({ isLoggedIn, onIsLoggedIn }: appProps) => {
+  const navigate = useNavigate();
+
   return (
     <div className="pt-24 -mt-1 ">
       <div className="flex flex-col justify-between w-3/4 gap-8 mx-auto">
         <div className="flex flex-col content-end w-full">
           <hr className="bg-gray-300 h-[2px] w-full" />
           {!isLoggedIn ? (
-            <Button className="ml-auto my-16 w-fit bg-[#862FE7] hover:bg-[#852fe7d8]">
-              Sign up for free
-            </Button>
+            <div className="py-16 ml-auto w-fit">
+              <Signup
+                type="default"
+                onIsLoggedIn={onIsLoggedIn}
+                isbutton={true}
+              />
+            </div>
           ) : (
-            <Button className="ml-auto my-16 w-fit bg-[#862FE7] hover:bg-[#852fe7d8]">
-              See <b className="mx-1">AI4ALL</b> in action
+            <Button
+              className="ml-auto my-16 w-fit bg-[#862FE7] hover:bg-[#852fe7d8]"
+              onClick={() => navigate("/kairos")}
+            >
+              See <b className="mx-1">KairosAI</b> in action
             </Button>
           )}
 

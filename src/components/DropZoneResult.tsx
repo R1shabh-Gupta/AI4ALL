@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CopyButton from "./CopyButton";
+import { Textarea } from "./Textarea";
 import { Button } from "./ui/button";
 
 const DropZoneResult = ({
@@ -18,7 +19,15 @@ const DropZoneResult = ({
           <CopyButton outputText={generatedPrompt} />
         </div>
       </div>
-      <p className="text-gray-600">{generatedPrompt}</p>
+
+      <Textarea
+        className="top-0 w-[800px] h-80 placeholder:italic placeholder:text-slate-400"
+        placeholder="Output will be displayed here :)"
+        id="message"
+        value={generatedPrompt}
+        readOnly
+      />
+
       <Button
         onClick={() => {
           setIsPromptGenerated(false);

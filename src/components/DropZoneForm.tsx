@@ -143,7 +143,7 @@ const DropZoneForm = ({
             />
           </div>
           <div className="w-full">
-            <Label htmlFor="name">Type of data</Label>
+            <Label htmlFor="name">Additional Information</Label>
             <Input ref={typeOfData} id="name" placeholder="" />
           </div>
 

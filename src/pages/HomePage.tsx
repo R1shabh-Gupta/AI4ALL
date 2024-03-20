@@ -7,10 +7,11 @@ import OverviewSection from "@/components/OverviewSection";
 import VersionSection from "@/components/VersionSection";
 
 type appProps = {
+  setIsLoggedIn: (value: boolean) => void;
   isLoggedIn: boolean;
 };
 
-const HomePage = ({ isLoggedIn }: appProps) => {
+const HomePage = ({ isLoggedIn, setIsLoggedIn }: appProps) => {
   return (
     <>
       <HeroSection isLoggedIn={isLoggedIn} />
@@ -19,7 +20,7 @@ const HomePage = ({ isLoggedIn }: appProps) => {
       <FeaturesSection />
       <FAQsSection />
       <CTA isLoggedIn={isLoggedIn} />
-      <Footer isLoggedIn={isLoggedIn} />
+      <Footer isLoggedIn={isLoggedIn} onIsLoggedIn={setIsLoggedIn} />
     </>
   );
 };

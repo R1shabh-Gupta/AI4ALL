@@ -3,7 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 
 const KairosAIPage = () => {
-  const [outputText, setOutputText] = useState("");
+  const [generatedCodeOutput, setGeneratedCodeOutput] = useState("");
+  const [explanationOutputText, setExplanationOutputText] = useState("");
   const [inputText, setInputText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,8 +22,8 @@ const KairosAIPage = () => {
           },
         }
       );
-
-      setOutputText(response.data);
+      setGeneratedCodeOutput(response.data.generatedCode);
+      setExplanationOutputText(response.data.explanation);
 
       setIsLoading(false);
     } catch (error) {
@@ -45,16 +46,16 @@ const KairosAIPage = () => {
         <div className="flex-[0.75] bg-black-100 p-4 rounded-2xl">
           <div className="flex gap-8">
             <OutputTextarea
-              outputText={outputText}
+              outputText={generatedCodeOutput}
               isLoading={isLoading}
-              setOutputText={setOutputText}
+              setOutputText={setGeneratedCodeOutput}
               title="Generated Code"
             />
 
             <OutputTextarea
-              outputText={outputText}
+              outputText={explanationOutputText}
               isLoading={isLoading}
-              setOutputText={setOutputText}
+              setOutputText={setExplanationOutputText}
               title="Explanation"
             />
           </div>

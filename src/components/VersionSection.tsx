@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
 const VersionSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="py-12 -mt-1 sm:py-24">
       <div className="flex flex-col justify-between w-3/4 gap-8 mx-auto sm:gap-0 sm:flex-row">
@@ -36,8 +38,13 @@ const VersionSection = () => {
         {/* sub-section 2 */}
         <div className="relative">
           <img src="/assets/images/gradient.png" alt="gradient" />
-          <Button className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-            Explore product changelog
+          <Button
+            className="absolute px-6 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+            onClick={() => {
+              navigate("/kairos");
+            }}
+          >
+            See <b className="mx-1">KairosAI</b> in action
           </Button>
         </div>
       </div>

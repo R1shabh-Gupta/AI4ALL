@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 
 type appProps = {
@@ -5,6 +6,7 @@ type appProps = {
 };
 
 const HeroSection = ({ isLoggedIn }: appProps) => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center gap-6 mt-24">
       <h1 className="sm:text-6xl text-5xl text-[#770785] font-heading font-bold">
@@ -20,21 +22,27 @@ const HeroSection = ({ isLoggedIn }: appProps) => {
       </p>
 
       <div className="flex flex-col gap-4 sm:flex-row">
-        {!isLoggedIn ? (
-          <Button className="px-6">
-            <div className="flex gap-2">
-              <img
-                className="scale-75"
-                src="/assets/images/star-icon.png"
-                alt="star"
-              />
-              <p> Sign up for free</p>
-            </div>
-          </Button>
-        ) : null}
+        {!isLoggedIn ? null : null}
 
-        <Button className="px-6" variant="outline">
-          See <b className="mx-1">AI4ALL</b> in action
+        <Button className="px-6" onClick={() => navigate("/dropzone")}>
+          <div className="flex items-center justify-center gap-2">
+            <img
+              className="scale-75"
+              src="/assets/images/star-icon.png"
+              alt="star"
+            />
+            <p>Check out DropZone</p>
+          </div>
+        </Button>
+
+        <Button
+          className="px-6"
+          variant="outline"
+          onClick={() => {
+            navigate("/kairos");
+          }}
+        >
+          See <b className="mx-1">KairosAI</b> in action
         </Button>
       </div>
 
