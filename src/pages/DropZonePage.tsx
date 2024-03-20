@@ -6,48 +6,6 @@ const DropZonePage = () => {
   const [isPromptGenerated, setIsPromptGenerated] = useState(false);
   const [generatedPrompt, setGeneratedPrompt] = useState("");
 
-  // const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   e.preventDefault();
-  //   // console.log(domainName.current.value);
-  //   // console.log(typeOfData.current.value);
-  //   // console.log(modelType);
-  //   // console.log(isMissingValue);
-  //   // console.log(isGPU);
-  //   // console.log(picture);
-  //   const inputData = {
-  //     domainName: domainName.current ? domainName.current.value : "",
-  //     typeOfData: typeOfData.current ? typeOfData.current.value : "",
-  //     modelType: modelType,
-  //     isMissingValue: isMissingValue,
-  //     isGPU: isGPU,
-  //     picture: picture,
-  //   };
-
-  //   console.log(inputData);
-
-  //   if (user) {
-  //     try {
-  //       setIsProcessing(true);
-  //       const response = await axios.post(
-  //         "http://127.0.0.1:5000/generateprompt",
-  //         {
-  //           text: inputData,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-  //       setIsProcessing(false);
-  //       console.log(response.data);
-  //       setGeneratedPrompt(response.data);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   }
-  // };
-
   return (
     <div className="relative min-h-screen py-6 overflow-hidden bg-gray-50 sm:py-12">
       <img
@@ -58,7 +16,7 @@ const DropZonePage = () => {
 
       <div className="absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
-      <div className="z-40 w-2/3 h-full p-12 mx-auto shadow-[0px_0px_50px_40px_#76078528] bg-gray-100 border border-gray-200 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 flex justify-evenly gap-8">
+      <div className="z-40 w-[92%] sm:w-2/3 h-full p-12 mx-auto shadow-[0px_0px_50px_40px_#76078528] bg-gray-100 border border-gray-200 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10 flex sm:flex-row flex-col justify-evenly gap-8">
         {!isPromptGenerated ? (
           <DropZoneForm
             setGeneratedPrompt={setGeneratedPrompt}

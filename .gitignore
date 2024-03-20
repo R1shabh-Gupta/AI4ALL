@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+test.py
 dist-ssr
 *.local
 
@@ -22,3 +23,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+

@@ -12,7 +12,8 @@ const KairosAIPage = () => {
     try {
       setIsLoading(true);
       const response = await axios.post(
-        "http://127.0.0.1:5000/test",
+        // "http://127.0.0.1:5000/test",
+        "http://44.202.8.58:8000/test",
         {
           text: inputText,
         },
@@ -42,9 +43,9 @@ const KairosAIPage = () => {
       <div className="absolute inset-0 bg-[url(https://play.tailwindcss.com/img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
       {/* chatbox */}
-      <div className="z-40 w-2/3 h-full p-12 mx-auto shadow-[0px_0px_50px_40px_#EBF8FF] bg-gray-100 border border-gray-200 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10">
+      <div className="z-40 w-[92%] sm:w-2/3 h-full p-6 sm:p-12 mx-auto shadow-[0px_0px_50px_40px_#EBF8FF] bg-gray-100 border border-gray-200 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-10">
         <div className="flex-[0.75] bg-black-100 p-4 rounded-2xl">
-          <div className="flex gap-8">
+          <div className="flex flex-col gap-8 sm:flex-row">
             <OutputTextarea
               outputText={generatedCodeOutput}
               isLoading={isLoading}

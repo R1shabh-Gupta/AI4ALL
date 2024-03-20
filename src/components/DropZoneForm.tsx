@@ -54,8 +54,6 @@ const DropZoneForm = ({
   };
 
   const handleSubmit = async () => {
-    // ... existing code ...
-
     const formData = new FormData();
     if (
       (domainName.current
@@ -87,13 +85,14 @@ const DropZoneForm = ({
     formData.append("isMissingValue", String(isMissingValue));
     formData.append("isGPU", String(isGPU));
     if (picture) {
-      formData.append("picture", picture); // Add image to FormData
+      formData.append("picture", picture);
     }
     if (user) {
       try {
         setIsProcessing(true);
         const response = await axios.post(
-          "http://127.0.0.1:5000/generateprompt",
+          // "http://127.0.0.1:5000/generateprompt",
+          "http://44.202.8.58:8000/generateprompt",
           formData,
           {
             headers: {
@@ -116,7 +115,7 @@ const DropZoneForm = ({
 
   return (
     <>
-      <div className=" w-[40%] h-auto gap-4 rounded-md border-2 border-dashed border-gray-200 flex flex-col justify-center items-center bg-slate-50 px-12">
+      <div className="w-full sm:w-[40%] h-64 sm:h-auto gap-4 rounded-md border-2 border-dashed border-gray-200 flex flex-col justify-center items-center bg-slate-50 px-12">
         <Input
           id="name"
           className="col-span-3"
@@ -124,11 +123,11 @@ const DropZoneForm = ({
           accept="image/*"
           onChange={onAddingImg}
         />
-        <Label htmlFor="name" className="text-lg text-gray-400">
+        <Label htmlFor="name" className="text-lg text-center text-gray-400">
           Upload Dataset Image
         </Label>
       </div>
-      <div className="w-1/2">
+      <div className="w-full sm:w-1/2">
         <h1 className="sm:text-4xl text-3xl text-[#770785] font-heading font-bold">
           Meta Data
         </h1>

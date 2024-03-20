@@ -14,14 +14,16 @@ const DropZoneResult = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-gray-700">Here is the Prompt</h2>
+        <h2 className="text-2xl font-bold text-gray-700 sm:text-3xl">
+          Here is the Prompt
+        </h2>
         <div className="-mt-2">
           <CopyButton outputText={generatedPrompt} />
         </div>
       </div>
 
       <Textarea
-        className="top-0 w-[800px] h-80 placeholder:italic placeholder:text-slate-400"
+        className="top-0 w-full sm:w-[800px] h-[500px] sm:h-80 placeholder:italic placeholder:text-slate-400"
         placeholder="Output will be displayed here :)"
         id="message"
         value={generatedPrompt}
