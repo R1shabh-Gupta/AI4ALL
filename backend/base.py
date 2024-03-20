@@ -1,8 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import google.generativeai as genai
+import PIL.Image
+from dotenv import load_dotenv
+load_dotenv()
+import os
+GEMINI_API = os.getenv("GEMINI_API")
 
-app = Flask(__name__)
+app = Flask(_name_)
 CORS(app)
 
 @app.route("/test", methods=["POST"])
@@ -14,32 +19,61 @@ def test():
         if not question:
             return jsonify({"error": "Missing 'text' field in request"}), 400
 
-        genai.configure(api_key="AIzaSyCoZIlylLChFxALmLyWlz2MdyU6LV5eWfU")
+        genai.configure(api_key=GEMINI_API)
         model = genai.GenerativeModel('gemini-pro')
 
-        generatedCode_response = model.generate_content("""Write fully formatted code in one block for a ML model for a dataset with
-        Name: This column represents the name of the patient associated with the healthcare record.
-        Age: The age of the patient at the time of admission, expressed in years.
-        Gender: Indicates the gender of the patient, either "Male" or "Female."
-        Blood Type: The patient's blood type, which can be one of the common blood types (e.g., "A+", "O-", etc.).
-        Medical Condition: This column specifies the primary medical condition or diagnosis associated with the patient, such as "Diabetes," "Hypertension," "Asthma," and more.
-        Date of Admission: The date on which the patient was admitted to the healthcare facility.
-        Doctor: The name of the doctor responsible for the patient's care during their admission.
-        Hospital: Identifies the healthcare facility or hospital where the patient was admitted.
-        Insurance Provider: This column indicates the patient's insurance provider, which can be one of several options, including "Aetna," "Blue Cross," "Cigna," "UnitedHealthcare," and "Medicare."
-        Billing Amount: The amount of money billed for the patient's healthcare services during their admission. This is expressed as a floating-point number.
-        Room Number: The room number where the patient was accommodated during their admission.
-        Admission Type: Specifies the type of admission, which can be "Emergency," "Elective," or "Urgent," reflecting the circumstances of the admission.
-        Discharge Date: The date on which the patient was discharged from the healthcare facility, based on the admission date and a random number of days within a realistic range.
-        Medication: Identifies a medication prescribed or administered to the patient during their admission. Examples include "Aspirin," "Ibuprofen," "Penicillin," "Paracetamol," and "Lipitor."
-        Test Results: Describes the results of a medical test conducted during the patient's admission. Possible values include "Normal," "Abnormal," or "Inconclusive," indicating the outcome of the test.""")
+        generatedCode_response = model.generate_content(f"""You are a machine learning engineer tasked with coding a class oriented program for a model appropriate for the requirements in {question}.
+        Carefully analyze the requirements to identify and use the best possible combinations of the requirements.
+        Provide a well oriented code for the model use the best the possible hypermarameters write optimisation functions if required Ensure that your code is clear, concise, and class driven along with proper comments explaining classes Give only the code disregard everything else""")
 
         explanation_response = model.generate_content(f"Explain the code and the metrics to focus on for this domain: {generatedCode_response}")
-
+       
         return jsonify({"generatedCode": generatedCode_response.text, "explanation": explanation_response.text})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-if __name__ == "__main__":
+@app.route("/generateprompt", methods=["POST"])
+def generateprompt():
+    if 'picture' not in request.files:
+      return jsonify({'error': 'Missing image data'}), 400
+    image_file = request.files['picture']
+    img = PIL.Image.open(image_file)
+
+    genai.configure(api_key=GEMINI_API)
+    imageToTextModel = genai.GenerativeModel('gemini-pro-vision')
+
+    response_01 = imageToTextModel.generate_content(["""
+    You are a data analyst tasked with analyzing a provided image containing data columns. Your objective is to explain and provide detailed information for each data column present in the image.
+
+    Carefully analyze the image to identify and list all the data columns visible.
+
+    For each data column identified, provide a comprehensive explanation detailing the type of data it represents and its significance within the dataset.
+
+    Ensure that your explanations are clear, concise, and informative, helping to understand the purpose and content of each data column.
+
+    Present your explanations in a text format to aid in presenting the dataset's information effectively. 
+    Give only the columns description disregard everything else
+    """, img], stream=True)
+
+    response_01.resolve()
+
+    textToTextModel = genai.GenerativeModel('gemini-pro')
+    response_02 = textToTextModel.generate_content(f"""
+    You are a machine learning engineer tasked with analyzing and providing insights on the {response_01}. Your objective is to suggest and explain a model appropriate for the dataset.
+
+    Carefully analyze the columns to identify and list all the parameters possible.
+
+    provide a comprehensive explanation detailing the model to be used and the possible hypermarameters to be updated
+
+    Ensure that your explanations are clear, concise, and informative, helping to understand the purpose and content of the model
+
+    Present your explanations in a text format to aid in presenting the information effectively 
+    Give only the description disregard everything else""")
+
+    finalResponse = response_01.text + '\n \n' + response_02.text;
+    return jsonify({"message": finalResponse})
+
+
+if _name_ == "_main_":
     app.run(debug=True)
