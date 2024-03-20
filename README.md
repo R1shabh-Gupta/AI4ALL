@@ -5,7 +5,7 @@ AI4all is a suite of tools designed to streamline the machine learning workflow,
 ## Dropzone
 
 Dropzone is a web-based application that simplifies data exploration and model selection. Here's what you can do with Dropzone:
-![Dropzone](Readme\Dropzone.png)
+
 - **Upload your Dataset:** Simply drag and drop a screenshot of your dataset or upload a CSV file.
 - **Automatic Column Recognition:** Dropzone intelligently identifies the columns in your dataset and provides a description for each one.
 - **Suggested Machine Learning Models:** Based on the data analysis, Dropzone recommends suitable machine learning models for your task (classification, regression, or clustering).
@@ -15,7 +15,7 @@ Dropzone is a web-based application that simplifies data exploration and model s
 ## Kairos.ai
 
 Kairos.ai takes your machine learning project a step further by generating production-ready code. Here's what Kairos.ai offers:
-![Kairos.ai](Readme\kairos.png)
+
 - **Automated Code Generation:** Within seconds, Kairos.ai generates class-driven, deployment-worthy machine learning code tailored to your dataset and chosen model.
 - **Code Explanation:** Alongside the generated code, Kairos.ai provides clear explanations for each step and the classes used within the code.
 
