@@ -1,6 +1,6 @@
-# AI4all: Automating Machine Learning Workflows
+# AI4ALL: Automating Machine Learning Workflows
 
-AI4all is a suite of tools designed to streamline the machine learning workflow, from data understanding to model deployment. It consists of two primary applications: Dropzone and Kairos.ai.
+AI4ALL is a suite of tools designed to streamline the machine learning workflow, from data understanding to model deployment. It consists of two primary applications: Dropzone and Kairos.ai.
 
 ## Dropzone
 
@@ -19,9 +19,9 @@ Kairos.ai takes your machine learning project a step further by generating produ
 - **Automated Code Generation:** Within seconds, Kairos.ai generates class-driven, deployment-worthy machine learning code tailored to your dataset and chosen model.
 - **Code Explanation:** Alongside the generated code, Kairos.ai provides clear explanations for each step and the classes used within the code.
 
-## Benefits of AI4all
+## Benefits of AI4ALL
 
-Using AI4all offers several advantages:
+Using AI4ALL offers several advantages:
 
 - **Increased Efficiency:** Automates tedious tasks like data exploration and model selection, saving you valuable time and effort.
 - **Improved Accuracy:** Suggests appropriate models based on data analysis, leading to better model performance.
@@ -31,4 +31,4 @@ Using AI4all offers several advantages:
 
 ## Contributing
 
-We welcome contributions to the AI4all project! If you're interested in getting involved :)
+We welcome contributions to the AI4ALL project! If you're interested in getting involved :)
