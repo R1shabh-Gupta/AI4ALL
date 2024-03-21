@@ -7,7 +7,7 @@ load_dotenv()
 import os
 GEMINI_API = os.getenv("GEMINI_API")
 
-app = Flask(_name_)
+app = Flask(__name__)
 CORS(app)
 
 @app.route("/test", methods=["POST"])
@@ -81,5 +81,5 @@ def generateprompt():
     return jsonify({"message": finalResponse})
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     app.run(debug=True)
