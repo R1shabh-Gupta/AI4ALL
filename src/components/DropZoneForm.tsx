@@ -32,15 +32,15 @@ const DropZoneForm = ({
   const [modelType, setModelType] = useState("Classification");
   const [isMissingValue, setIsMissingValue] = useState(false);
   const [isGPU, setIsGPU] = useState(false);
-  const [picture, setPicture] = useState<File>();
+  const [file, setFile] = useState<File>();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const onAddingImg = (event: React.FormEvent) => {
     const files = (event.target as HTMLInputElement).files;
 
     if (files && files.length > 0) {
-      setPicture(files[0]);
-      console.log(picture);
+      setFile(files[0]);
+      console.log(file);
     }
   };
 
@@ -62,7 +62,7 @@ const DropZoneForm = ({
         ? (typeOfData.current as HTMLInputElement).value
         : "") == "" ||
       modelType == "Not Selected" ||
-      picture == undefined
+      file == undefined
     ) {
       toast({
         variant: "destructive",
@@ -83,16 +83,16 @@ const DropZoneForm = ({
     formData.append("modelType", modelType);
     formData.append("isMissingValue", String(isMissingValue));
     formData.append("isGPU", String(isGPU));
-    if (picture) {
-      formData.append("picture", picture);
+    if (file) {
+      formData.append("file", file);
     }
     console.log(formData.get("typeOfData"));
     if (user) {
       try {
         setIsProcessing(true);
         const response = await axios.post(
-          // "http://127.0.0.1:5000/generateprompt",
-          "https://r1shabhai4all.pythonanywhere.com/generateprompt",
+          "http://127.0.0.1:5000/generateprompt",
+          // "https://r1shabhai4all.pythonanywhere.com/generateprompt",
           formData,
           {
             headers: {
@@ -120,11 +120,11 @@ const DropZoneForm = ({
           id="name"
           className="col-span-3"
           type="file"
-          accept="image/*"
+          accept=".csv,image/*"
           onChange={onAddingImg}
         />
         <Label htmlFor="name" className="text-lg text-center text-gray-400">
-          Upload Dataset Image
+          Upload CSV or Image of the dataset
         </Label>
       </div>
       <div className="w-full sm:w-1/2">
