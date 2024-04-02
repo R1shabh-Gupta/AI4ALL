@@ -6,8 +6,9 @@ import PIL.Image
 from dotenv import load_dotenv
 import pandas as pd
 
+
 load_dotenv()
-GEMINI_API = "AIzaSyBozmazYlm2fkq7Bz0QUj0KLPvZna6NEgE"
+GEMINI_API = os.getenv("GEMINI_API")
 
 app = Flask(__name__)
 CORS(app)
@@ -66,22 +67,34 @@ def generateprompt():
     if extension.lower() == '.csv':
         metadata = {}
         data = pd.read_csv(file)
-        metadata['columnList'] = data.columns.tolist()
-        columns = data.columns.tolist()
-        metadata['shape'] = data.shape
-        metadata['info'] = data.info(verbose=True)
+        metadata['columnList'] = data.columns.tolist() #returning properly
+        metadata['shape'] = data.shape #returning propelry
+        #metadata['info'] = data.info(verbose=True) #printing in terminal instead of returning
         categorical_columns = []
         for column in data.columns:
             if data[column].dtype == 'object' or pd.api.types.is_categorical_dtype(data[column]):
                 categorical_columns.append(column)
-        metadata['categoricalColumns'] = categorical_columns
+        metadata['categoricalColumns'] = categorical_columns #returning properly
         numerical_columns = []
         for column in data.columns:
             if pd.api.types.is_numeric_dtype(data[column]):
                 numerical_columns.append(column)
-        metadata['numericalColumns'] = numerical_columns
+        metadata['numericalColumns'] = numerical_columns  #returning  properly
         columns_with_missing_values = data.columns[data.isna().any()].tolist()
-        metadata['missingValues'] = columns_with_missing_values
+        metadata['missingValues'] = columns_with_missing_values #returning properly
+
+        #generation
+#       texttoTextModel = genai.GenerativeModel('gemini-pro')
+#        response_01 = texttoTextModel.generate_content(f"""
+#           As a machine learning engineer tasked with analyzing and providing insights on the {response_01} in the domain of {domainName}, your objective is to suggest and explain a {modelType} model appropriate for the dataset, while also including {additionalData} as a necessary requirement in the output.
+#
+#            Firstly, carefully analyze the columns to identify and list all possible parameters. Then, provide a comprehensive explanation detailing the model to be used and the possible hyperparameters to be updated.
+#
+#           Ensure that your explanations are clear, concise, and informative, aiding in understanding the purpose and content of the model. Present your explanations in a text format to effectively present the information, focusing solely on the description and disregarding any extraneous details.""")
+
+        finalResponse = "Output from prompt"
+
+
 
     elif extension.lower() in ['.png', '.jpg', 'jpeg', '.svg']:
         img = PIL.Image.open(file)
