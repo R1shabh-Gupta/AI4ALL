@@ -38,6 +38,24 @@ def test():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/handlinput", methods=["POST"])
+def handleinput():
+    if 'file' not in request.files:
+        return jsonify({'error': 'Missing Data'}), 400
+
+    if file.filename == '':
+        return jsonify({'error': 'No file selected'}), 400
+
+    filename, extension = os.path.splitext(file.filename)
+
+    if extension.lower() in ['.csv']:
+        return jsonify({'type': 'csv'}), 200
+
+    elif extension.lower() in ['.png', '.jpg', '.jpeg', '.svg']:
+        return jsonify({'type': 'image'}), 200
+
+    else:
+        return jsonify({'error': 'Invalid file format'}), 400
 
 @app.route("/generateprompt", methods=["POST"])
 def generateprompt():
