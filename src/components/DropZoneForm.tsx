@@ -26,12 +26,12 @@ const DropZoneForm = ({
   const auth = getAuth();
   const user = auth.currentUser;
 
-  const domainName = useRef(null);
-  const typeOfData = useRef(null);
+  // const domainName = useRef(null);
+  // const typeOfData = useRef(null);
 
-  const [modelType, setModelType] = useState("Classification");
-  const [isMissingValue, setIsMissingValue] = useState(false);
-  const [isGPU, setIsGPU] = useState(false);
+  // const [modelType, setModelType] = useState("Classification");
+  // const [isMissingValue, setIsMissingValue] = useState(false);
+  // const [isGPU, setIsGPU] = useState(false);
   const [file, setFile] = useState<File>();
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -54,35 +54,43 @@ const DropZoneForm = ({
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    if (
-      (domainName.current
-        ? (domainName.current as HTMLInputElement).value
-        : "") == "" ||
-      (typeOfData.current
-        ? (typeOfData.current as HTMLInputElement).value
-        : "") == "" ||
-      modelType == "Not Selected" ||
-      file == undefined
-    ) {
+    // if (
+    //   (domainName.current
+    //     ? (domainName.current as HTMLInputElement).value
+    //     : "") == "" ||
+    //   (typeOfData.current
+    //     ? (typeOfData.current as HTMLInputElement).value
+    //     : "") == "" ||
+    //   modelType == "Not Selected" ||
+    //   file == undefined
+    // ) {
+    //   toast({
+    //     variant: "destructive",
+    //     title: "Uh oh! Something went wrong.",
+    //     description: "Please fill all the fields.",
+    //   });
+    //   return;
+    // }
+
+    // formData.append(
+    //   "domainName",
+    //   domainName.current ? (domainName.current as HTMLInputElement).value : ""
+    // );
+    // formData.append(
+    //   "typeOfData",
+    //   typeOfData.current ? (typeOfData.current as HTMLInputElement).value : ""
+    // );
+    // formData.append("modelType", modelType);
+    // formData.append("isMissingValue", String(isMissingValue));
+    // formData.append("isGPU", String(isGPU));
+    if (!file) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: "Please fill all the fields.",
+        title:  "Uh oh! Something went wrong",
+        description:  "Please login to continue"
       });
       return;
     }
-
-    formData.append(
-      "domainName",
-      domainName.current ? (domainName.current as HTMLInputElement).value : ""
-    );
-    formData.append(
-      "typeOfData",
-      typeOfData.current ? (typeOfData.current as HTMLInputElement).value : ""
-    );
-    formData.append("modelType", modelType);
-    formData.append("isMissingValue", String(isMissingValue));
-    formData.append("isGPU", String(isGPU));
     if (file) {
       formData.append("file", file);
     }
@@ -91,7 +99,7 @@ const DropZoneForm = ({
       try {
         setIsProcessing(true);
         const response = await axios.post(
-          "http://127.0.0.1:5000/generateprompt",
+          "http://127.0.0.1:5000/handleinput",
           // "https://r1shabhai4all.pythonanywhere.com/generateprompt",
           formData,
           {
@@ -127,73 +135,74 @@ const DropZoneForm = ({
           Upload CSV or Image of the dataset
         </Label>
       </div>
-      <div className="w-full sm:w-1/2">
-        <h1 className="sm:text-4xl text-3xl text-[#770785] font-heading font-bold">
-          Meta Data
-        </h1>
+      <Button onClick={() => handleSubmit()} className="mt-4 bg-[#770785]/90 hover:bg-[#770785]">
+        {isProcessing ? "Processing..." : "Submit"}
+      </Button>
+      </>
+      // <div className="w-full sm:w-1/2">
+      //   <h1 className="sm:text-4xl text-3xl text-[#770785] font-heading font-bold">
+      //     Meta Data
+      //   </h1>
 
-        <div className="flex flex-col w-full gap-4 mt-8">
-          <div className="w-full">
-            <Label htmlFor="name">Domain Name</Label>
-            <Input
-              ref={domainName}
-              id="name"
-              placeholder="artificial intelligence"
-            />
-          </div>
-          <div className="w-full">
-            <Label htmlFor="name">Additional Information</Label>
-            <Input ref={typeOfData} id="name" placeholder="" />
-          </div>
+      //   <div className="flex flex-col w-full gap-4 mt-8">
+      //     <div className="w-full">
+      //       <Label htmlFor="name">Domain Name</Label>
+      //       <Input
+      //         ref={domainName}
+      //         id="name"
+      //         placeholder="artificial intelligence"
+      //       />
+      //     </div>
+      //     <div className="w-full">
+      //       <Label htmlFor="name">Additional Information</Label>
+      //       <Input ref={typeOfData} id="name" placeholder="" />
+      //     </div>
 
-          <div className="flex flex-col items-start gap-8">
-            <div className="flex items-center justify-center gap-2">
-              <Label className="text-nowrap" htmlFor="framework">
-                Type of model
-              </Label>
-              <Select
-                onValueChange={(value) => setModelType(value)}
-                defaultValue={"Classification"}
-              >
-                <SelectTrigger id="framework">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="Classification">Classification</SelectItem>
-                  <SelectItem value="Clustering">Clustering</SelectItem>
-                  <SelectItem value="Regression">Regression</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+      //     <div className="flex flex-col items-start gap-8">
+      //       <div className="flex items-center justify-center gap-2">
+      //         <Label className="text-nowrap" htmlFor="framework">
+      //           Type of model
+      //         </Label>
+      //         <Select
+      //           onValueChange={(value) => setModelType(value)}
+      //           defaultValue={"Classification"}
+      //         >
+      //           <SelectTrigger id="framework">
+      //             <SelectValue placeholder="Select" />
+      //           </SelectTrigger>
+      //           <SelectContent position="popper">
+      //             <SelectItem value="Classification">Classification</SelectItem>
+      //             <SelectItem value="Clustering">Clustering</SelectItem>
+      //             <SelectItem value="Regression">Regression</SelectItem>
+      //           </SelectContent>
+      //         </Select>
+      //       </div>
 
-            <div className="flex gap-10 mb-4 -mt-2">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  onClick={() => setIsMissingValue((prev) => !prev)}
-                  id="terms"
-                />
-                <Label htmlFor="terms">Missing Values</Label>
-              </div>
+      //       <div className="flex gap-10 mb-4 -mt-2">
+      //         <div className="flex items-center space-x-2">
+      //           <Checkbox
+      //             onClick={() => setIsMissingValue((prev) => !prev)}
+      //             id="terms"
+      //           />
+      //           <Label htmlFor="terms">Missing Values</Label>
+      //         </div>
 
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  onClick={() => setIsGPU((prev) => !prev)}
-                  id="terms"
-                />
-                <Label htmlFor="terms">GPU</Label>
-              </div>
-            </div>
-          </div>
-
-          <Button
-            onClick={() => handleSubmit()}
-            className="bg-[#770785]/90 hover:bg-[#770785]"
-          >
-            {isProcessing ? "Processing..." : "Submit"}
-          </Button>
-        </div>
-      </div>
-    </>
+      //         <div className="flex items-center space-x-2">
+      //           <Checkbox
+      //             onClick={() => setIsGPU((prev) => !prev)}
+      //             id="terms"
+      //           />
+      //           <Label htmlFor="terms">GPU</Label>
+      //         </div>
+      //       </div>
+      //     </div>
+          // <Button
+          //   onClick={() => handleSubmit()}
+          //   className="bg-[#770785]/90 hover:bg-[#770785]"
+          // >
+          //   {isProcessing ? "Processing..." : "Submit"}
+          // </Button>
+   // </>
   );
 };
 
