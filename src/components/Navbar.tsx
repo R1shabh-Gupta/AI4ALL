@@ -11,7 +11,14 @@ import {
 import { getAuth, signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
-import { NavigationMenu } from "./ui/navigation-menu";
+import { NavigationMenu, NavigationMenuLink } from "./ui/navigation-menu";
+
+import {
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 type appProps = {
   onIsLoggedIn: (value: boolean) => void;
@@ -85,6 +92,15 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
                 <Link to="/kairos">KairosAI</Link>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuLabel
+                className={`${
+                  currentPagePathname === "/autoPreprocessorPage" &&
+                  "font-semibold text-[#770785]"
+                }`}
+              >
+                <Link to="/autoPreprocessorPage">AutoPreprocessor</Link>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
               <DropdownMenuLabel>
                 <a
                   href="https://github.com/R1shabh-Gupta/TextWiz"
@@ -124,26 +140,101 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
         <div className="hidden sm:flex">
           <ul className="flex items-center justify-center gap-1 text-gray-600">
             <li>
-              <Button
-                className="font-normal text-gray-600 text-md"
-                variant={`${
-                  currentPagePathname === "/dropzone" ? "secondary" : "ghost"
-                }`}
-                onClick={() => navigate("/dropzone")}
-              >
-                DropZone
-              </Button>
-            </li>
-            <li className="mr-5">
-              <Button
-                className="font-normal text-gray-600 text-md"
-                variant={`${
-                  currentPagePathname === "/kairos" ? "secondary" : "ghost"
-                }`}
-                onClick={() => navigate("/kairos")}
-              >
-                KairosAI
-              </Button>
+              <NavigationMenu className="mr-8">
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="bg-white border border-slate-200">
+                      Toolbox
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                        <li className="row-span-3">
+                          <NavigationMenuLink asChild>
+                            <a
+                              className="flex flex-col justify-end w-full h-full p-6 no-underline rounded-md outline-none select-none bg-gradient-to-b from-muted/50 to-muted focus:shadow-md"
+                              onClick={() => navigate("/")}
+                            >
+                              <div>
+                                <img
+                                  src="/assets/images/toolbox.svg"
+                                  alt="toolbox"
+                                />
+                              </div>
+                              <div className="mt-4 mb-2 text-lg font-medium">
+                                Nexus
+                              </div>
+                              <p className="text-sm leading-tight text-muted-foreground">
+                                From Scattered to Streamlined within minutes 🚀
+                              </p>
+                            </a>
+                          </NavigationMenuLink>
+                        </li>
+                        <li onClick={() => navigate("/dropzone")}>
+                          <NavigationMenuLink
+                            asChild
+                            className={`${
+                              currentPagePathname === "/dropzone"
+                                ? "bg-accent text-accent-foreground"
+                                : ""
+                            }`}
+                          >
+                            <a className="block p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                              <div className="text-sm font-medium leading-none">
+                                DropZone
+                              </div>
+                              <p className="text-sm leading-snug line-clamp-2 text-muted-foreground">
+                                Drag It. Drop It. Generate It 🔁
+                              </p>
+                            </a>
+                          </NavigationMenuLink>
+                        </li>
+
+                        <li onClick={() => navigate("/kairos")}>
+                          <NavigationMenuLink
+                            asChild
+                            className={`${
+                              currentPagePathname === "/kairos"
+                                ? "bg-accent text-accent-foreground"
+                                : ""
+                            }`}
+                          >
+                            <a className="block p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                              <div className="text-sm font-medium leading-none">
+                                KairosAI
+                              </div>
+                              <p className="text-sm leading-snug line-clamp-2 text-muted-foreground">
+                                Your AI Champion: Drop, Generate, Explain,
+                                Deploy ⚡️
+                              </p>
+                            </a>
+                          </NavigationMenuLink>
+                        </li>
+
+                        <li onClick={() => navigate("/autoPreprocessorPage")}>
+                          <NavigationMenuLink
+                            asChild
+                            className={`${
+                              currentPagePathname === "/autoPreprocessorPage"
+                                ? "bg-accent text-accent-foreground"
+                                : ""
+                            }`}
+                          >
+                            <a className="block p-3 space-y-1 leading-none no-underline transition-colors rounded-md outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                              <div className="text-sm font-medium leading-none">
+                                AutoPreprocessor
+                              </div>
+                              <p className="text-sm leading-snug line-clamp-2 text-muted-foreground">
+                                From Mess to Masterpiece: Preprocess your data
+                                in a jiffy 🎨
+                              </p>
+                            </a>
+                          </NavigationMenuLink>
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             </li>
 
             <li>

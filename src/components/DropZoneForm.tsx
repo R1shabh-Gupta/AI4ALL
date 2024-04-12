@@ -174,7 +174,7 @@ const DropZoneForm = ({
           id="name"
           className="col-span-3"
           type="file"
-          accept="image/*"
+          accept=".csv,image/*"
           onChange={onAddingImg}
         />
         <Label htmlFor="name" className="text-lg text-center text-gray-400">

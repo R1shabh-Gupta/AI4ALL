@@ -59,9 +59,9 @@ def handleinput():
 
 @app.route("/generateprompt", methods=["POST"])
 def generateprompt():
-    if 'file' not in request.files:
+    if 'picture' not in request.files:
         return jsonify({'error': 'Missing data'}), 400
-    file = request.files['file']
+    file = request.files['picture']
 
     if file.filename == '':
         return jsonify({'error': 'No file selected'}), 400
