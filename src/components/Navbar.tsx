@@ -19,6 +19,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import FeedbackButton from "./FeedbackButton";
 
 type appProps = {
   onIsLoggedIn: (value: boolean) => void;
@@ -140,7 +141,7 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
         <div className="hidden sm:flex">
           <ul className="flex items-center justify-center gap-1 text-gray-600">
             <li>
-              <NavigationMenu className="mr-8">
+              <NavigationMenu className="mr-4">
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger className="bg-white border border-slate-200">
@@ -235,6 +236,10 @@ const Navbar = ({ onIsLoggedIn, isLoggedIn }: appProps) => {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
+            </li>
+
+            <li className="mr-4">
+              <FeedbackButton />
             </li>
 
             <li>
