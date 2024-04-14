@@ -25,6 +25,7 @@ const AutoPreprocessorPage = () => {
 
       if (selectedFile.size > MAX_FILE_SIZE) {
         showMaxSizeLimitExceeded();
+        setCSVFile(undefined);
         return;
       }
 

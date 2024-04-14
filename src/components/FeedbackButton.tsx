@@ -20,6 +20,7 @@ const FeedbackButton = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const textareaText = useRef<HTMLTextAreaElement>(null);
+  const [submitButtonText, setSubmitButtonText] = useState("Submit");
 
   const [rating, setRating] = useState("none");
 
@@ -46,6 +47,8 @@ const FeedbackButton = () => {
           rating: rating,
         };
 
+        setSubmitButtonText("Submitting...");
+
         emailjs
           .send(
             import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -70,6 +73,8 @@ const FeedbackButton = () => {
               );
             }
           );
+
+        setSubmitButtonText("Submit");
       } catch (error) {
         console.error("Error:", error);
       }
@@ -176,7 +181,7 @@ const FeedbackButton = () => {
         </div>
         <DialogFooter>
           <Button className="w-full" onClick={handleSubmit}>
-            Submit
+            {submitButtonText}
           </Button>
         </DialogFooter>
       </DialogContent>
