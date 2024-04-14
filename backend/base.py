@@ -1,10 +1,15 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import google.generativeai as genai
 import PIL.Image
 from dotenv import load_dotenv
 import pandas as pd
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
+from sklearn.ensemble import IsolationForest
+from sklearn.preprocessing import LabelEncoder
+
 
 
 load_dotenv()
@@ -12,6 +17,80 @@ GEMINI_API = os.getenv("GEMINI_API")
 
 app = Flask(__name__)
 CORS(app)
+
+#utility functions
+def perform_eda(df):
+    eda_results = {}
+
+    #cheking for missing values
+    eda_results['missing_values'] = df.isnull().sum().any()
+
+    #Finding all columns in the dataset
+    columns = df.columns
+    eda_results['columns'] = columns.tolist()
+
+    #bifurcating numerical and categorical columns
+    numerical_columns = []
+    categorical_columns = []
+    for column in columns:
+        if df[column].dtype=='object':
+              categorical_columns.append(column)
+        else:
+              numerical_columns.append(column)
+
+    eda_results['numerical_columns'] = numerical_columns
+    eda_results['categorical_columns'] = categorical_columns
+
+    #eda on categorical columns
+    number_of_unique_values = {}
+    for column in categorical_columns:
+        number_of_uniques = df[column].nunique()
+        number_of_unique_values[column] = number_of_uniques
+    eda_results['number_of_unique_values'] = number_of_unique_values
+
+    #eda on numerical columns
+    feature_scaler = {}
+    for column in numerical_columns:
+        min_val = df[column].min()
+        max_val = df[column].max()
+        range_val = max_val - min_val
+        if range_val > 2000:
+            feature_scaler[column] = StandardScaler()
+        elif min_val >=0:
+            feature_scaler[column] = MinMaxScaler()
+        else:
+            feature_scaler[column] = RobustScaler()
+
+    eda_results['scaling_techniques'] = feature_scaler
+
+    # correlation_matrix = df[numerical_cols].corr().abs()
+    # upper_tri = correlation_matrix.where(np.triu(np.ones(correlation_matrix.shape), k=1).astype(bool))
+    # high_correlation = upper_tri.stack().nlargest(5)  # Consider top 5 highest correlations
+    # eda_results['high_correlation'] = high_correlation
+    return eda_results
+
+def prepreocess(df, eda_results):
+    #handling missing values
+    if eda_results['missing_values']:
+        imputer = SimpleImputer(strategy='mean')
+        columns_to_impute_mean = []
+        for column in eda_results['numerical_columns']:
+            if df[column].nunique() >10:
+                columns_to_impute_mean.append(column)
+        df[columns_to_impute_mean] = imputer.fit_transform(df[columns_to_impute_mean])
+        imputer = SimpleImputer(strategy='most_frequent')
+        columns_to_impute_mode = [col for col in df.columns if col not in columns_to_impute_mean]
+        df[columns_to_impute_mode] = imputer.fit_transform(df[columns_to_impute_mode])
+
+    #Feature Scaling
+    for column, scaler in eda_results['scaling_techniques'].items():
+        df[column] = scaler.fit_transform(pd.DataFrame(df[column]))
+
+    #encoding
+    for column in eda_results['categorical_columns']:
+        if df[column].nunique()<10:
+            df[column] = LabelEncoder().fit_transform(df[column])
+    return df
 
 
 @app.route("/test", methods=["POST"])
@@ -37,6 +116,25 @@ def test():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/preprocessing", methods=["POST"])
+def preprocessing():
+    if 'CSVFile' not in request.files:
+        return jsonify({'error': 'Missing Data'}), 400
+    file = request.files['CSVFile']
+    filename, extension = os.path.splitext(file.filename)
+    if extension.lower() not in ['.csv']:
+        return jsonify({'error': 'Uploaded file is not a csv file'})
+
+    temp_upload_path = 'temp_upload.csv'
+    file.save(temp_upload_path)
+    df = pd.read_csv('temp_upload.csv')
+    preprocessed_csv = prepreocess(df, perform_eda(df))
+    temp_csv_file = 'preprocessed.csv'
+    preprocessed_csv.to_csv(temp_csv_file, index=False)
+    print(preprocessed_csv)
+    os.remove(temp_upload_path)
+    return send_file(temp_csv_file, as_attachment=True)
 
 @app.route("/handlinput", methods=["POST"])
 def handleinput():
@@ -110,7 +208,7 @@ def generateprompt():
 #
 #           Ensure that your explanations are clear, concise, and informative, aiding in understanding the purpose and content of the model. Present your explanations in a text format to effectively present the information, focusing solely on the description and disregarding any extraneous details.""")
 
-        finalResponse = "Output from prompt"
+        finalResponse = metadata['columnList']
 
 
 

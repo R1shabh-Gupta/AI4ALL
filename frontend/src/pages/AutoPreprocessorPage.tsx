@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import axios from "axios";
 import { useState } from "react";
 
 const AutoPreprocessorPage = () => {
@@ -25,12 +26,39 @@ const AutoPreprocessorPage = () => {
 
       if (selectedFile.size > MAX_FILE_SIZE) {
         showMaxSizeLimitExceeded();
-        setCSVFile(undefined);
         return;
       }
 
       setCSVFile(selectedFile);
       console.log(CSVFile);
+    }
+  };
+
+  const handleDownload = async () =>{
+    if(CSVFile){
+      const formData = new FormData();
+      formData.append('CSVFile', CSVFile);
+      axios.post("http://127.0.0.1:5000/preprocessing", formData, {
+        headers:{
+          'Content-Type': 'multipart/form-data'
+        },
+        responseType : 'blob'
+      })
+      .then(response =>{
+        const blob = new Blob([response.data]);
+        const url = window.URL.createObjectURL(blob);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = url;
+        downloadLink.download = 'preprocessed.csv';
+        downloadLink.click()
+        window.URL.revokeObjectURL(url);
+      })
+      .catch(error =>{
+        console.log('error uploading file', error)
+      });
+    }
+    else{
+      alert("Please Upload file")
     }
   };
 
@@ -58,7 +86,7 @@ const AutoPreprocessorPage = () => {
           </Label>
         </div>
 
-        <Button className="bg-green-950 hover:bg-green-900">
+        <Button className="bg-green-950 hover:bg-green-900" onClick={()=>handleDownload()}>
           Download Preprocessed Dataset
         </Button>
       </div>
