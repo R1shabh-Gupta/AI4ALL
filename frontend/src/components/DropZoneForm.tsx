@@ -124,8 +124,8 @@ const DropZoneForm = ({
       try {
         setIsProcessing(true);
         const response = await axios.post(
-          // "http://127.0.0.1:5000/generateprompt",
-          "https://r1shabhai4all.pythonanywhere.com/generateprompt",
+           "http://127.0.0.1:5000/generateprompt",
+          //"https://r1shabhai4all.pythonanywhere.com/generateprompt",
           formData,
           {
             headers: {
