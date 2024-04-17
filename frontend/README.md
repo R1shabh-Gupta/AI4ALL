@@ -1,34 +1,36 @@
-# AI4ALL: Automating Machine Learning Workflows
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-AI4ALL is a suite of tools designed to streamline the machine learning workflow, from data understanding to model deployment. It consists of two primary applications: Dropzone and Kairos.ai.
+## Getting Started
 
-## Dropzone
+First, run the development server:
 
-Dropzone is a web-based application that simplifies data exploration and model selection. Here's what you can do with Dropzone:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- **Upload your Dataset:** Simply drag and drop a screenshot of your dataset or upload a CSV file.
-- **Automatic Column Recognition:** Dropzone intelligently identifies the columns in your dataset and provides a description for each one.
-- **Suggested Machine Learning Models:** Based on the data analysis, Dropzone recommends suitable machine learning models for your task (classification, regression, or clustering).
-- **Metadata Integration:** Provide additional context about your data by specifying the domain and indicating if there are missing values.
-- **Interactive Model Selection:** Refine the model selection process by specifying your desired machine learning task (classification, regression, or clustering).
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Kairos.ai
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Kairos.ai takes your machine learning project a step further by generating production-ready code. Here's what Kairos.ai offers:
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-- **Automated Code Generation:** Within seconds, Kairos.ai generates class-driven, deployment-worthy machine learning code tailored to your dataset and chosen model.
-- **Code Explanation:** Alongside the generated code, Kairos.ai provides clear explanations for each step and the classes used within the code.
+## Learn More
 
-## Benefits of AI4ALL
+To learn more about Next.js, take a look at the following resources:
 
-Using AI4ALL offers several advantages:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-- **Increased Efficiency:** Automates tedious tasks like data exploration and model selection, saving you valuable time and effort.
-- **Improved Accuracy:** Suggests appropriate models based on data analysis, leading to better model performance.
-- **Enhanced Understanding:** Provides code explanations alongside generated code, improving your grasp of the machine learning process.
-- **Faster Deployment:** Accelerates the transition from data to deployed model by automating code generation.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
+## Deploy on Vercel
 
-## Contributing
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-We welcome contributions to the AI4ALL project! If you're interested in getting involved :)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
